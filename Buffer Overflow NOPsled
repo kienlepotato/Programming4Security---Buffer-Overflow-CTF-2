@@ -38,6 +38,16 @@ int main (int argc, char** argv){
 //Step 3.3 Compile the bad code into a vulnerable application by using the command:
 gcc -m32 -fno-stack-protector -z exec -no-pie -g -Wno-implicit-function-declaration winner.c -o winner
 
-//Step
+//Step 4. Run the vulnerable application with GDB debugger by entering the command:
+gdb./winner
 
+//Step 5. Observe Assembly Dump of vulnerable application's 'Main' in GDB by using the command:
+disass main
+
+//Step 5.1 Keep note of the memory location of the 'strcpy' line. For me it was: 0x080491a1.
+
+//Step 5.2 Place a breakpoint at this location in GDB by using the commmand:
+b 0x080491a1
+
+//
 
