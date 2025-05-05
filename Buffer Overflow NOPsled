@@ -1,0 +1,36 @@
+//Step. 1 UPDATE
+
+If you have a problem with these instructions and apt failing because of keys. 
+
+sudo wget https://archive.kali.org/archive-key.asc -O /etc/apt/trusted.gpg.d/kali-archive-keyring.asc
+
+If you have a missing public key replace F6BC with the key you need:
+
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys F6BC
+
+//Step 2. Install GCC libraries 
+sudo apt install gcc-multilib
+
+//Step 3. Disable ASLR
+sudo sysctl -w kernel.randomize_va_space=0
+
+
+//Step 3. Make the vulnnerable application
+
+//Step3.1 Enter this command in command prompt to create a C script:
+nano bad.c
+
+//Step 3.2 Copy+Paste the following code into the window:
+---
+#include <stdio.h>
+#include <string.h>
+int main (int argc, char** argv){
+ //Make a buffer make this bigger than the minimum you will need
+ //You will want to make this large enough to fit shell code and lots of nops
+ char buffer[500];
+ //copy cmdline input into the buffer.
+ strcpy(buffer, argv[1]);
+ //return 0 because that is what we do if stuff exits normally.
+ return 0;
+}
+---
