@@ -18,7 +18,7 @@ sudo sysctl -w kernel.randomize_va_space=0
 //Step 3. Make the vulnnerable application
 
 //Step3.1 Enter this command in command prompt to create a C script:
-nano bad.c
+nano winner.c
 
 //Step 3.2 Copy+Paste the following code into the window:
 ---
@@ -36,6 +36,8 @@ int main (int argc, char** argv){
 ---
 
 //Step 3.3 Compile the bad code into a vulnerable application by using the command:
-gcc -m32 -fno-stack-protector -z exec -no-pie -g -Wno-implicit-function-declaration bad.c -o badcode
+gcc -m32 -fno-stack-protector -z exec -no-pie -g -Wno-implicit-function-declaration winner.c -o winner
+
+//Step
 
 
