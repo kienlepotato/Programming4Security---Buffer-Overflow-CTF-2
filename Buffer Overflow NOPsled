@@ -37,7 +37,7 @@ int main (int argc, char** argv){
 ---
 
 //Step 3.3 Compile the code into a vulnerable application by using the command:
-gcc -m32 -fno-stack-protector -z exec -no-pie -g -Wno-implicit-function-declaration winner.c -o winner
+gcc -m32 -fno-stack-protector -z execstack -no-pie -g -Wno-implicit-function-declaration winner.c -o winner
 
 //Step 4. Run the vulnerable application with GDB debugger by entering the command:
 gdb./winner
