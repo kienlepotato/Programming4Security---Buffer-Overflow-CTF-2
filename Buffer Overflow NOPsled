@@ -103,8 +103,8 @@ x/2000xb($esp-450)
 //Step 9.5 find a memory location containing 0x90 (NOP) that is surrounded by other NOPs
 /for me I chose the memory location 0xFFFFcbb6
 
-//Step 9.6 convert the address into little endian and add backward slashes (/) and X's:
-/for me it is: '/xb6/xcb/xFF/xFF'
+//Step 9.6 convert the address into little endian and add forward slashes (\) and X's:
+/for me it is: '\xb6\xcb\xFF\xFF'
 
 //Step 10. Finialising our payload
 //open pieshell.py with nano:
