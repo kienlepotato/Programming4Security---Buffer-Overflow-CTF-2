@@ -64,7 +64,7 @@ info registers
 //Step 7 Finding the offset
 /open a new terminal
 /enter the following command to find the offset for eip return address:
-msf-pattern_offset -l 500 -q /for me the eip was -0x6c41376c
+msf-pattern_offset -l 500 -q 0x6c41376c
 /for me the exact offset was at 352
 
 //Step 8 overwriting the EIP return address.
